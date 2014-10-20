@@ -56,5 +56,25 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
-
+  
+  def search_tmdb
+    if params[:movie][:title] == ''
+      flash[:notice] = 'Invalid search term'
+      redirect_to movies_path
+    else
+      Tmdb::Api.key('f4702b08c0ac6ea5b51425788bb26562')
+      @matching_movies = Movie.find_in_tmdb(params)
+      if @matching_movies.count == 0
+        flash[:notice] = 'No mathcing movies were found on TMDb'
+        redirect_to movies_path
+      end
+    end    
+  end
+  
+  def add_tmdb
+    params[:tmdb_movies].keys.each do |movie|
+      Movie.create_from_tmdb movie
+    end  
+    redirect_to movies_path
+  end
 end
