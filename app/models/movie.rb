@@ -4,12 +4,33 @@ class Movie < ActiveRecord::Base
   end
   
   def self.find_in_tmdb(params)
-    Tmdb::Movie.find(params[:movie][:title])
+    matching_movies = Array.new
+    Tmdb::Movie.find(params[:movie][:title]).each do |movie|
+      rating = 'PG-13'
+      Tmdb::Movie.releases(movie.id)[:countries].each do |country|
+        if(country[:iso_3166_1] == 'US')
+          rating = country[:certification]
+          break
+        end
+      end
+      matching_movies << {:tmdb_id => movie.id, :title => movie.title, :rating => rating, :release_date => movie.release_date}
+    end
+    return matching_movies
   end
   
   def self.create_from_tmdb(movie_id)
   	movie = Tmdb::Movie.detail(movie_id)
-  	self.create!(:title => movie.title, :rating => "R", :release_date => movie.release_date, :description => movie.overview)
+  	rating = ''
+  	Tmdb::Movie.releases(movie.id)[:countries].each do |country|
+      if(country[:iso_3166_1] == 'US')
+        rating = country[:certification]
+        break
+      end
+    end
+    if rating == ''
+      rating = 'PG-13'
+    end
+  	self.create!(:title => movie.title, :rating => rating, :release_date => movie.release_date, :description => movie.overview)
   end
   
 end
