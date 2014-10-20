@@ -31,6 +31,5 @@ class Movie < ActiveRecord::Base
       rating = 'PG-13'
     end
   	self.create!(:title => movie.title, :rating => rating, :release_date => movie.release_date, :description => movie.overview)
-  end
-  
+  end  
 end
