@@ -18,8 +18,10 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails'
+  gem 'simplecov', :require => false
+  gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
+  gem 'autotest-rails'
 end
 
 group :production do

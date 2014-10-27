@@ -28,7 +28,7 @@
 = form_tag movies_search_tmdb_path do
 
   = label :movie, :title, 'Search for movie titles containing:'
-  = text_field :movie, 'title'
+  = text_field :movie, :title
 
   = submit_tag 'Search TMDb'
 

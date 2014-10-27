@@ -63,7 +63,7 @@ class MoviesController < ApplicationController
       redirect_to movies_path
     else
       Tmdb::Api.key('f4702b08c0ac6ea5b51425788bb26562')
-      @matching_movies = Movie.find_in_tmdb(params)
+      @matching_movies = Movie.find_in_tmdb(params[:movie][:title])
       if @matching_movies.count == 0
         flash[:notice] = 'No mathcing movies were found on TMDb'
         redirect_to movies_path

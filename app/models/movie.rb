@@ -1,11 +1,16 @@
 class Movie < ActiveRecord::Base
+
+  class Movie::InvalidKeyError < StandardError ; end
+  
   def self.all_ratings
     %w(G PG PG-13 R)
   end
   
-  def self.find_in_tmdb(params)
+  def self.find_in_tmdb(movie_title)
     matching_movies = Array.new
-    Tmdb::Movie.find(params[:movie][:title]).each do |movie|
+    
+      Tmdb::Movie.find(movie_title).each do |movie|
+    
       rating = 'PG-13'
       Tmdb::Movie.releases(movie.id)[:countries].each do |country|
         if(country[:iso_3166_1] == 'US')
