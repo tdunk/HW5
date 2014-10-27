@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.15'
 ruby '1.9.3'
-gem 'themoviedb'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -46,6 +46,8 @@ gem 'jquery-rails'
 
 # use Haml for templates
 gem 'haml'
+
+gem 'themoviedb'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
