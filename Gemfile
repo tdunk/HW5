@@ -22,6 +22,7 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
   gem 'autotest-rails'
+  gem 'factory_girl_rails'
 end
 
 group :production do
